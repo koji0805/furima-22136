@@ -5,7 +5,7 @@
 | Column             | Type       | Options                       |
 | ------------------ | ---------- | ----------------------------- |
 | nickname           | string     | null: false                   |
-| email              | string     | null: false                   |
+| email              | string     | null: false, unique: true     |
 | encrypted_password | string     | null: false                   |
 | first_name         | string     | null: false                   |
 | last_name          | string     | null: false                   |
@@ -13,9 +13,7 @@
 | last_name          | string     | null: false                   |
 | first_name_kana    | string     | null: false                   |
 | last_name_kana     | string     | null: false                   |
-| birthday_yyyy_id   | integer    | null: false                   |
-| birthday_mm_id     | integer    | null: false                   |
-| birthday_dd_id     | integer    | null: false                   |
+| birthday           | date       | null: false                   |
 
 ### Association
 
@@ -27,12 +25,17 @@
 
 | Column             | Type       | Options                       |
 | ------------------ | ---------- | ----------------------------- |
-| image              | references | null: false, foreign_key:true |
 | name               | string     | null: false                   |
-| description        | text       |                               |
+| description        | text       | null: false                   |
 | category           | references | null: false, foreign_key:true |
 | condition          | references | null: false, foreign_key:true |
 | price              | integer    | null: false                   |
+| users_id           | integer    | null: false                   |
+| delivery_charge    | references | null: false, foreign_key:true |
+| prefecture         | references | null: false, foreign_key:true |
+| delivery_days      | references | null: false, foreign_key:true |
+
+
 
 ### Association
 
@@ -44,6 +47,7 @@
 * belongs_to_active_hash :delivery_days
 * has_many_attached :images
 * belongs_to :user
+* belongs_to_active_hash :delivery_way
 
 ## ordersテーブル
 
@@ -51,9 +55,6 @@
 | -------------- | --------- | ----------------------------- |
 | buyer_user_id  | integer   | null: false                   |
 | item_id        | integer   | null: false                   |
-| delivery_charge| reference | null: false, foreign_key:true |
-| prefecture     | reference | null: false, foreign_key:true |
-| ddelivery_ays  | reference | null: false, foreign_key:true |
 
 ### Association
 
@@ -63,17 +64,14 @@
 
 | Column             | Type       | Options                       |
 | ------------------ | ---------- | ----------------------------- |
-| user               | references | null: false, foreign_key:true |
-| card_id            | string     | null: false                   |
-| expiration_mm_id   | text       |                               |
-| expiration_yyyy_id | references | null: false, foreign_key:true |
-| postal_code        | references | null: false, foreign_key:true |
+| orders_id          | references | null: false, foreign_key:true |
+| postal_code        | string     | null: false                   |
 | prefecture         | integer    | null: false                   |
-| address1           | integer    | null: false                   |
-| address2           | integer    | null: false                   |
-| telephone          | integer    | null: false                   |
-
+| address1           | string     | null: false                   |
+| address2           | string     | null: false                   |
+| telephone          | string     | null: false                   |
+| building　         | string     | null: false                   |
 
 ### Association
 
-* belongs_to :user
+* belongs_to :orders
