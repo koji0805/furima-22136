@@ -28,17 +28,15 @@
 | condition_id           | integer     | null: false                   |
 | delivery_charge_id     | integer     | null: false                   |
 | prefecture_id          | integer     | null: false                   |
-| delivery_day_id       | integer     | null: false                   |
+| delivery_day_id        | integer     | null: false                   |
 | price                  | integer     | null: false                   |
 | user                   | references  | null: false, foreign_key:true |
 
 
 ### Association
 
-* belongs_to_active_hash :category
-* belongs_to_active_hash :condition
 * belongs_to :user
-* has_many :orders
+* has_one :orders
 
 ## ordersテーブル
 
@@ -51,6 +49,7 @@
 
 * belongs_to  :user
 * belongs_to  :item
+* has_one :order
 
 # Purchaseテーブル
 
