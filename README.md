@@ -37,11 +37,8 @@
 
 * belongs_to_active_hash :category
 * belongs_to_active_hash :condition
-* belongs_to_active_hash :delivery_charge
-* belongs_to_active_hash :prefecture
-* belongs_to_active_hash :delivery_days
-* has_many_attached :images
 * belongs_to :user
+* has_many :orders
 
 ## ordersテーブル
 
@@ -52,8 +49,8 @@
 
 ### Association
 
-* has_one :user
-* has_one :item
+* belongs_to  :user
+* belongs_to  :item
 
 # Purchaseテーブル
 
