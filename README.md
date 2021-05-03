@@ -28,7 +28,7 @@
 | condition_id           | integer     | null: false                   |
 | delivery_charge_id     | integer     | null: false                   |
 | prefecture_id          | integer     | null: false                   |
-| delivery_days_id       | integer     | null: false                   |
+| delivery_day_id       | integer     | null: false                   |
 | price                  | integer     | null: false                   |
 | user                   | references  | null: false, foreign_key:true |
 
@@ -52,8 +52,8 @@
 
 ### Association
 
-* belongs_to :users
-* belongs_to :items
+* has_one :user
+* has_one :item
 
 # Purchaseテーブル
 
@@ -65,7 +65,7 @@
 | address1           | string     | null: false                   |
 | address2           | string     | null: false                   |
 | telephone          | string     | null: false                   |
-| building　         | string     | null: false                   |
+| building           | string     | 　　　　　　　                   |
 
 ### Association
 
