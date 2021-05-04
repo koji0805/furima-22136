@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          with_options presence: true do
-         validates :nickname, presence: true
-         validates :password, format:{with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
+         validates :nickname
+         with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: ' Full-width characters' } do
          validates :first_name, presence: true,format:{with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/}
          validates :last_name, presence: true,format:{with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/}
          validates :first_name_kana, presence: true,format:{with: /\A[ｧ-ﾝﾞﾟ]+\z/}
