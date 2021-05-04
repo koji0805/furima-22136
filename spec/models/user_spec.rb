@@ -37,9 +37,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'passwordが英字のみでは登録できないこと' do
-      user = build(:password: "min_alpha: 1, min_numric: 1")
-      user.valid?
-      expect(user.errors[:password]).to include("は不正な値です")
+      @user .password = '1a'
+      @user.valid?
+      expect(@user.errors[:password]).to include("は不正な値です")
     end
 
     it 'passwordが5文字以下であれば登録できないこと' do
@@ -111,4 +111,5 @@ RSpec.describe User, type: :model do
       expect(user.errors[:birth_day]).to include("を入力してください")
     end
   end
+end
 end

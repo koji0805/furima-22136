@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
     with_options presence: true do
-    validates :nickname, presence: true, (:password: "min_alpha: 1, min_numric: 1")
+    validates :nickname
     with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: ' Full-width characters' } do
     validates :first_name
     validates :last_name
