@@ -5,19 +5,21 @@ class ItemsController < ApplicationController
   
     def new
       @item = Item.new
-      @category = Category.all
-      @condition = Condition.all
-      @delivery_charge = DeliveryCharge.all
-      @prefecture = Prefecture.all
-      @delivery_day = DeliveryDay.all
     end
   
-    def crate
+    def create
+      @item = Item.new(item_params)
+      if @item.save
+        redirect_to root_path
+      else
+        render :new
+      end
     end
   
     private
   
-    # def items_params
-    #   params.require(:items).permit(:concept, :image).merge(user_id: current_user.id)
-    # end
+    def item_params
+      # binding.pry
+      params.require(:item).permit(:name, :description,:category_id, :condition_id, :delivery_charge_id, :prefecture_id, :delivery_day_id, :price, :image, :text).merge(user_id: current_user.id)
+    end
 end
