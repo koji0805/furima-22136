@@ -8,8 +8,12 @@ class Item < ApplicationRecord
   belongs_to :delivery_day
   has_one_attached :image
 
-  validates :name, :description, :price, presence: true
-
+  validates :name, :description, presence: true
+  with_options presence: true do
+  validates :price, numericality: { only_integer: true, message: "is invalid. Input half-width characters." }
+  end
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is out of setting range" }
+  
   #ジャンルの選択が「--」の時は保存できないようにする
   validates :category_id, numericality: { other_than: 1 } 
   validates :condition_id, numericality: { other_than: 1 } 
