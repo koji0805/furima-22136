@@ -6,11 +6,26 @@ RSpec.describe Item, type: :model do
   end
   describe '商品出品機能' do
 
+    context '商品出品ができる時' do
     it '全てが揃えば登録できる事' do
       expect(@item).to be_valid
     end
-    
+  end
 
+    context '商品出品ができない時' do
+
+      it '画像が必須であること' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+    end
+
+    it 'ユーザー情報が必須であること' do
+        @item.user_id = 'nil'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+    end
+    
     it '商品名が必須であること' do
       @item.name = ''
       @item.valid?
@@ -22,7 +37,6 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Description can't be blank")
     end
-
 
     it 'カテゴリーの情報が必須であること' do
       @item.category_id = ''
@@ -59,6 +73,7 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is invalid. Input half-width characters.")
       end
+    end
 
     it 'priceが300円未満では保存できないこと' do
       @item.price = 0
