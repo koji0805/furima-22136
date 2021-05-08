@@ -9,6 +9,7 @@ RSpec.describe Item, type: :model do
     it '全てが揃えば登録できる事' do
       expect(@item).to be_valid
     end
+    
 
     it '商品名が必須であること' do
       @item.name = ''
