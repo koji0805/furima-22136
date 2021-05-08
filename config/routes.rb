@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   root to: "items#index"
   resources :items, only: [:new, :create] do
   end
-  root to: "products#index"
 end
