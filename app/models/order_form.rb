@@ -1,6 +1,6 @@
 class OrderForm
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :address1, :address2, :telephone, :building, :item_id, :token
+  attr_accessor :postal_code, :prefecture_id, :address1, :address2, :telephone, :building, :user_id, :item_id, :token
 
   with_options presence: true do
     validates :address1, :address2, :token, :user_id,:item_id
@@ -10,7 +10,7 @@ class OrderForm
 
     end
   def save
-    order = Order.create(item_id: item_id, user_id: user_id)
+    order = Order.create(item_id: item_id)
     Purchase.create(order_id: order.id, postal_code: postal_code, prefecture_id: prefecture_id, address1: address1, address2: address2, telephone: telephone, building: building, user_id: user_id)
   end
 end

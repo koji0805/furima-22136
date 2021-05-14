@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe OrderForm, type: :model do
     before do
       @item = FactoryBot.create(:item)
-      @order_form = FactoryBot.build(:order_form, item_id: @item.id)
+      @user = FactoryBot.create(:user)
+      @order_form = FactoryBot.build(:order_form, item_id: @item.id, user_id: @user_id) 
     end
   
   context '商品が購入できる時' do
@@ -67,7 +68,7 @@ RSpec.describe OrderForm, type: :model do
       end
 
     it 'user_idが空だと保存できないこと' do
-      @order_form.prefecture_id = ''
+      @order_form.user_id = ''
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("User_id code can't be blank")
     end
