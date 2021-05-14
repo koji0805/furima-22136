@@ -1,7 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :set_item, only: [:index,:create]
   before_action :move_to_index, only: [:index,:create]
-  before_action :move_to_create, only: [:index,:create]
   before_action :Payjp_create, only: [:create]
 
   def index
@@ -29,13 +28,7 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_index
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
-  end
-
-  def move_to_create
-    if @item.order != nil
+    if current_user.id == @item.user_id || @item.order != nil
       redirect_to root_path
     end
   end
