@@ -1,7 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :set_item, only: [:index,:create]
   before_action :move_to_index, only: [:index,:create]
-  before_action :Payjp_create, only: [:create]
 
   def index
     @order_form = OrderForm.new
@@ -10,6 +9,7 @@ class PurchasesController < ApplicationController
   def create
     @order_form = OrderForm.new(purchases_params)
     if @order_form.valid?
+       payjp_create
        @order_form.save
        redirect_to root_path
     else
@@ -33,7 +33,7 @@ class PurchasesController < ApplicationController
     end
   end
   
-  def Payjp_create
+  def payjp_create
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
     Payjp::Charge.create(
       amount: set_item[:price], 

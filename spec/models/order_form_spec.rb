@@ -34,5 +34,29 @@ RSpec.describe Purchase, type: :model do
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Token can't be blank")
     end
+
+    it 'address1が空だと保存できないこと' do
+      @order_form.address1 = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Address1 code can't be blank")
+    end
+
+    it 'address2が空だと保存できないこと' do
+      @order_form.address2 = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Address2 code can't be blank")
+    end
+
+    it 'telephoneが空だと保存できないこと' do
+      @order_form.telephone = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Telephone code can't be blank")
+    end
+
+    it 'prefecture_idが空だと保存できないこと' do
+      @order_form.prefecture_id = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Prefecture_id code can't be blank")
+    end
   end
 end  
