@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Purchase, type: :model do
+RSpec.describe OrderForm, type: :model do
     before do
       @order_form = FactoryBot.build(:order_form)
     end
@@ -57,6 +57,36 @@ RSpec.describe Purchase, type: :model do
       @order_form.prefecture_id = ''
       @order_form.valid?
       expect(@order_form.errors.full_messages).to include("Prefecture_id code can't be blank")
+    end
+
+    it 'prefecture_idが1の選択肢を選択すると登録できない' do
+      @order_form.prefecture_id= 1
+      @item.valid?
+      expect(@order_form.errors.full_messages).to include("Prefecture_id charge must be other than 1")
+      end
+
+    it 'user_idが空だと保存できないこと' do
+      @order_form.prefecture_id = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("User_id code can't be blank")
+    end
+
+    it 'item_idが空だと保存できないこと' do
+      @order_form.item_id = ''
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Item_id code can't be blank")
+    end
+
+    it 'telephoneは英数混合では登録できないこと' do
+      @order_form.telephone = '1a'
+      @order_form.valid?
+      expect(@item.errors.full_messages).to include('Telephone is invalid. Input half-width characters.')
+    end
+
+    it 'telephoneは12桁以上では登録できないことでは登録できないこと' do
+      @order_form.telephone = '111111111111'
+      @order_form.valid?
+      expect(@item.errors.full_messages).to include('Telephone is invalid. Input half-width characters.')
     end
   end
 end  
