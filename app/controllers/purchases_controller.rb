@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_item, only: [:index,:create]
   before_action :move_to_index, only: [:index,:create]
   before_action :move_to_create, only: [:index,:create]
@@ -34,12 +35,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def move_to_index
-    if user_signed_in? && if current_user.id
-      redirect_to root_path
-    end
-  end
-  
   def payjp_create
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
     Payjp::Charge.create(

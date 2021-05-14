@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OrderForm, type: :model do
     before do
       @item = FactoryBot.create(:item)
-      @order_form = FactoryBot.build(:order_form)
+      @order_form = FactoryBot.build(:order_form, item_id: @item.id)
     end
   
   context '商品が購入できる時' do
