@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :set_item, only: [:index,:create]
   before_action :move_to_index, only: [:index,:create]
+  before_action :move_to_create, only: [:index,:create]
 
   def index
     @order_form = OrderForm.new
@@ -28,8 +29,13 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_index
-    if user_signed_in?
     if current_user.id == @item.user_id || @item.order != nil
+      redirect_to root_path
+    end
+  end
+
+  def move_to_index
+    if user_signed_in? && if current_user.id
       redirect_to root_path
     end
   end
