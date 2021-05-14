@@ -8,7 +8,6 @@ class CreatePurchases < ActiveRecord::Migration[6.0]
       t.string :address2,   null: false
       t.string :telephone,   null: false
       t.string :building,  default: ""
-      t.references :user,  null: false,  foreign_key: true
 
       t.timestamps
     end

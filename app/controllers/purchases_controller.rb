@@ -2,6 +2,8 @@ class PurchasesController < ApplicationController
   before_action :set_item, only: [:index,:create]
   before_action :move_to_index, only: [:index,:create]
   before_action :move_to_create, only: [:index,:create]
+  before_action :Payjp_create, only: [:create]
+
   def index
     @order_form = OrderForm.new
   end
@@ -9,12 +11,6 @@ class PurchasesController < ApplicationController
   def create
     @order_form = OrderForm.new(purchases_params)
     if @order_form.valid?
-      Payjp.api_key = "sk_test_cecb6f356b4f896b54a0cded"  
-      Payjp::Charge.create(
-        amount: set_item[:price], 
-        card: purchases_params[:token],  
-        currency: 'jpy'         
-      )
        @order_form.save
        redirect_to root_path
     else
@@ -42,5 +38,14 @@ class PurchasesController < ApplicationController
     if @item.order != nil
       redirect_to root_path
     end
+  end
+  
+  def Payjp_create
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+    Payjp::Charge.create(
+      amount: set_item[:price], 
+      card: purchases_params[:token],  
+      currency: 'jpy'         
+    )
   end
 end
