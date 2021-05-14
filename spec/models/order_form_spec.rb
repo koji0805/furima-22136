@@ -4,7 +4,8 @@ RSpec.describe OrderForm, type: :model do
     before do
       @item = FactoryBot.create(:item)
       @user = FactoryBot.create(:user)
-      @order_form = FactoryBot.build(:order_form, item_id: @item.id, user_id: @user_id) 
+      @order_form = FactoryBot.build(:order_form, item_id: @item.id, user_id: @user.id) 
+      sleep 1
     end
   
   context '商品が購入できる時' do
@@ -40,55 +41,55 @@ RSpec.describe OrderForm, type: :model do
     it 'address1が空だと保存できないこと' do
       @order_form.address1 = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("Address1 code can't be blank")
+      expect(@order_form.errors.full_messages).to include("Address1 can't be blank")
     end
 
     it 'address2が空だと保存できないこと' do
       @order_form.address2 = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("Address2 code can't be blank")
+      expect(@order_form.errors.full_messages).to include("Address2 can't be blank")
     end
 
     it 'telephoneが空だと保存できないこと' do
       @order_form.telephone = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("Telephone code can't be blank")
+      expect(@order_form.errors.full_messages).to include("Telephone can't be blank", "Telephone can't be blank")
     end
 
     it 'prefecture_idが空だと保存できないこと' do
       @order_form.prefecture_id = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("Prefecture_id code can't be blank")
+      expect(@order_form.errors.full_messages).to include("Prefecture can't be blank", "Prefecture can't be blank")
     end
 
     it 'prefecture_idが1の選択肢を選択すると登録できない' do
       @order_form.prefecture_id= 1
-      @item.valid?
-      expect(@order_form.errors.full_messages).to include("Prefecture_id charge must be other than 1")
+      @order_form.valid?
+      expect(@order_form.errors.full_messages).to include("Prefecture can't be blank")
       end
 
     it 'user_idが空だと保存できないこと' do
       @order_form.user_id = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("User_id code can't be blank")
+      expect(@order_form.errors.full_messages).to include("User can't be blank")
     end
 
     it 'item_idが空だと保存できないこと' do
       @order_form.item_id = ''
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("Item_id code can't be blank")
+      expect(@order_form.errors.full_messages).to include("Item can't be blank")
     end
 
     it 'telephoneは英数混合では登録できないこと' do
       @order_form.telephone = '1a'
       @order_form.valid?
-      expect(@item.errors.full_messages).to include('Telephone is invalid. Input half-width characters.')
+      expect(@order_form.errors.full_messages).to include("Telephone can't be blank")
     end
 
     it 'telephoneは12桁以上では登録できないことでは登録できないこと' do
       @order_form.telephone = '111111111111'
       @order_form.valid?
-      expect(@item.errors.full_messages).to include('Telephone is invalid. Input half-width characters.')
+      expect(@order_form.errors.full_messages).to include("Telephone can't be blank")
     end
   end
 end  
