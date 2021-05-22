@@ -6,7 +6,7 @@ class CreatePurchases < ActiveRecord::Migration[6.0]
       t.integer :prefecture_id,   null: false
       t.string :address1,   null: false
       t.string :address2,   null: false
-      t.string :telephone,   null: false
+      t.string :telephone,  null: false
       t.string :building,  default: ""
 
       t.timestamps
