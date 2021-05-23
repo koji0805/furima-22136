@@ -9,11 +9,11 @@ class PurchasesController < ApplicationController
   
   def create
     @order_form = OrderForm.new(purchases_params)
-    　if @order_form.valid?
-       payjp_create
-       @order_form.save
-       redirect_to root_path
-    　else
+    if @order_form.valid?
+        payjp_create
+        @order_form.save
+        redirect_to root_path
+    else
       render action: :index
     end
   end
